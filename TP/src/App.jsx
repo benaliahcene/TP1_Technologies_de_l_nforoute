@@ -1,26 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Card , CardHeader, CardBody } from "react-bootstrap";
-import LoginPage from "./components/LoginPage.jsx";
-import SignUpPage from "./components/SignUpPage.jsx";
 
-export default () => (
- <Container style={{marginTop:"150px"}}>
-  <Row>
-    <Col>
-      <Card>
+import Reserve from "./routes/Reserve";
+class MyComponent extends Component {
+    render() {
+        return (
+            <div>
+               <Reserve/>
+            </div>
+        );
+    }
+}
 
-
-      <CardHeader as="h2" >
-          Accueil 
-        </CardHeader>
-        <CardBody>
-          <LoginPage/>
-          <SignUpPage/>
-        </CardBody>
-      </Card>
-      
-    </Col>
-  </Row>
- </Container>
-);
+export default MyComponent;

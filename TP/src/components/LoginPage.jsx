@@ -69,7 +69,7 @@ const LoginPage = () => {
                             </Form>
                         </Card.Body>
                     </Card>
-                </Col>
+                </Col> 
             </Row>
         </Container>
     );
