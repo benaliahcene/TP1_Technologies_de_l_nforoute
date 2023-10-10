@@ -2,14 +2,13 @@ import React, { useState, useRef } from "react";
 import { Form, Button, Container, Row, Col, Card, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUserPlus, faTimes, faUser, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-
-
+import { connect } from 'react-redux'; 
+import { saveUserData } from '../actions/userActions'; 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-
 library.add(faEnvelope, faLock, faUserPlus, faTimes, faUser, faCalendarAlt);
 
-const SignUpPage = () => {
+const SignUpPage = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     
@@ -20,7 +19,7 @@ const SignUpPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        
         if (emailRef.current.value !== emailConfirmRef.current.value) {
             setErrorMessage("Les adresses e-mail ne correspondent pas.");
             return;
@@ -31,8 +30,13 @@ const SignUpPage = () => {
             return;
         }
 
-        setErrorMessage('');  // Si tout est bon, on réinitialise le message d'erreur
-        // Ici, vous pouvez procéder à la soumission de votre formulaire
+        const userData = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value
+        };
+
+        props.saveUserData(userData); console.log("test", userData) // Utilisation de l'action pour sauvegarder les données
+        setErrorMessage(''); 
     }
 
     return (
@@ -40,7 +44,7 @@ const SignUpPage = () => {
             <Row className="justify-content-md-center">
                 <Col xs={12} md={6}>
                     <Card>
-                        <Card.Header className="text-center font-weight-bold" as="h2">Sing up</Card.Header>
+                        <Card.Header className="text-center font-weight-bold" as="h2">S'inscrire</Card.Header>
                         <Card.Body>
                             {!showForm ? (
                                 <div className="text-center">
@@ -126,4 +130,8 @@ const SignUpPage = () => {
     );
 }
 
-export default SignUpPage;
+const mapDispatchToProps = dispatch => ({
+    saveUserData: (userData) => dispatch(saveUserData(userData))
+});
+
+export default connect(null, mapDispatchToProps)(SignUpPage);

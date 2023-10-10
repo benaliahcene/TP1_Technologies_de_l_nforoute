@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ReserveVol from "./routes/ReserveVol";
+import ReserveRoom from "./routes/ReserveRoom";
+import Resultat from "./components/Resultat"
+import Home from "./routes/Home";
+import Profil from "./routes/Profil";
 
-import Reserve from "./routes/Reserve";
+
 class MyComponent extends Component {
     render() {
         return (
             <div>
-               <Reserve/>
+               <Home/>
+           
             </div>
         );
     }
