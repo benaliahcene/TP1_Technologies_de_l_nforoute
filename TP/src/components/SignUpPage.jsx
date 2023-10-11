@@ -12,6 +12,10 @@ const SignUpPage = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     
+    // Refs
+    const firstNameRef = useRef(null);
+    const lastNameRef = useRef(null);
+    const dobRef = useRef(null);
     const emailRef = useRef(null);
     const emailConfirmRef = useRef(null);
     const passwordRef = useRef(null);
@@ -31,14 +35,17 @@ const SignUpPage = (props) => {
         }
 
         const userData = {
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
+            dob: dobRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value
         };
 
-        props.saveUserData(userData); console.log("test", userData) // Utilisation de l'action pour sauvegarder les données
+        props.saveUserData(userData); console.log("test", userData) // Sauvegarde des données
         setErrorMessage(''); 
+        setShowForm(false); // Cacher le formulaire après soumission
     }
-
     return (
         <Container className="mt-5">
             <Row className="justify-content-md-center">
@@ -60,21 +67,21 @@ const SignUpPage = (props) => {
                                             <Form.Label className="font-weight-normal">
                                                 <FontAwesomeIcon icon={faUser} className="mr-2"/> Prénom
                                             </Form.Label>
-                                            <Form.Control type="text" placeholder="Entrez votre prénom" required />
+                                            <Form.Control ref={firstNameRef} type="text" placeholder="Entrez votre prénom" required />
                                         </Form.Group>
 
                                         <Form.Group controlId="formBasicLastName" className="mb-3">
                                             <Form.Label className="font-weight-normal">
                                                 <FontAwesomeIcon icon={faUser} className="mr-2"/> Nom
                                             </Form.Label>
-                                            <Form.Control type="text" placeholder="Entrez votre nom" required />
+                                            <Form.Control ref={lastNameRef} type="text" placeholder="Entrez votre nom" required />
                                         </Form.Group>
 
                                         <Form.Group controlId="formBasicDOB" className="mb-3">
                                             <Form.Label className="font-weight-normal">
                                                 <FontAwesomeIcon icon={faCalendarAlt} className="mr-2"/> Date de naissance
                                             </Form.Label>
-                                            <Form.Control type="date" required />
+                                            <Form.Control ref={dobRef} type="date" required />
                                         </Form.Group>
                                         <Form.Group controlId="formBasicEmail" className="mb-3">
                                             <Form.Label className="font-weight-normal">

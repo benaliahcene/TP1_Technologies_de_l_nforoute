@@ -20,7 +20,7 @@ const LoginPage = (props) => {
         console.log("compte recup", props.user);
 
 
-        const validUser = props.user && props.user.email === enteredEmail && props.user.password === enteredPassword;
+        const validUser = props.user.email === enteredEmail && props.user.password === enteredPassword;
         console.log(validUser);
         if (validUser) {
             alert('Welcome, vous etes connecté.');
