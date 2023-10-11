@@ -9,14 +9,12 @@ class MyComponent extends Component {
   render() {
     return (
       <div>
-        <Menu />
         <Card className="text-center">
       <Card.Header> <h2>Trouvez la chambre de vos rêves dès aujourd'hui.</h2></Card.Header>
           <Card.Body>
             <ReserveRoom />
           </Card.Body>
         </Card>
-        <Footer />
       </div>
     );
   }

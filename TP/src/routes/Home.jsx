@@ -9,7 +9,7 @@ class MyComponent extends Component {
     render() {
         return (
             <div>
-                <Menu/>
+             
                 <Container style={{marginTop:"150px"}}>
                     <Row>
                         <Col>
@@ -23,7 +23,7 @@ class MyComponent extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <Footer/>
+            
             </div>
         );
     }

@@ -1,33 +1,46 @@
 import React from "react";
 import { Container, Button } from "react-bootstrap";
-import { FaHome,  FaPlane, FaBed, FaUser, FaWallet } from "react-icons/fa";
+import { FaHome, FaPlane, FaBed, FaUser, FaWallet } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
-const Home = (props) => (
+const Menu = (props) => (
   <Container fluid className="p-5 mb-2 bg-light text-dark">
     <h1>
       <FaPlane />
       <b>FlyWithUs</b>.
     </h1>
     <p>Welcome to our <b>reservation</b> application</p>
-    
-  
 
-    <Button variant="primary" className="m-2">
-      <FaPlane /> Vols
-    </Button>
+    <Link to="/vols">
+      <Button variant="primary" className="m-2">
+        <FaPlane /> Vols
+      </Button>
+    </Link>
 
-    <Button variant="primary" className="m-2">
-      <FaBed /> Chambres
-    </Button>
+    <Link to="/chambres">
+      <Button variant="primary" className="m-2">
+        <FaBed /> Chambres
+      </Button>
+    </Link>
 
-    <Button variant="primary" className="m-2">
-      <FaUser /> Profil
-    </Button>
+    <Link to="/profil">
+      <Button variant="primary" className="m-2">
+        <FaUser /> Profil
+      </Button>
+    </Link>
 
-    <Button variant="primary" className="m-2">
-      <FaWallet /> Solde
-    </Button>
+    <Link to="/solde">
+      <Button variant="primary" className="m-2">
+        <FaWallet /> Solde
+      </Button>
+    </Link>
+
+    <Link to="/facturation">
+      <Button variant="primary" className="m-2">
+        <FaWallet /> Facturation
+      </Button>
+    </Link>
   </Container>
 );
 
-export default Home;
+export default Menu;

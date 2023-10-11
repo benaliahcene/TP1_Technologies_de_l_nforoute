@@ -1,19 +1,21 @@
 import { SAVE_USER_DATA } from '../actions/actionTypes';
 
 const initialState = {
-    user: {}
+    email: '',
+    password: ''
 };
 
 const userReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SAVE_USER_DATA:
             return {
                 ...state,
-                user: action.payload
+                email: action.payload.email,
+                password: action.payload.password
             };
         default:
             return state;
     }
-}
+};
 
 export default userReducer;

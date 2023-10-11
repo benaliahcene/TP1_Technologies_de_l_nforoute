@@ -1,38 +1,32 @@
+import React, { useRef } from "react";
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import React, { useRef } from "react";
-// import { useNavigation  } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 
-library.add(faEnvelope, faLock, faSignInAlt);
-
-const LoginPage = () => {
-    let compte_data = [
-        {
-            email: "benalihassan845@gmail.com",
-            password: "Benali2014"
-        },
-    ];
-
+const LoginPage = (props) => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-    // const history = useNavigation();
 
     const handleLogin = (event) => {
         event.preventDefault();
 
         const enteredEmail = emailRef.current.value;
         const enteredPassword = passwordRef.current.value;
+        console.log("email entre", enteredEmail );
+        console.log("password entre", enteredPassword );
+        console.log("email recup", props.user.email );
+        console.log("password recup", props.user.password );
+        console.log("compte recup", props.user);
 
-        const validUser = compte_data.find(user => user.email === enteredEmail && user.password === enteredPassword);
 
+        const validUser = props.user && props.user.email === enteredEmail && props.user.password === enteredPassword;
+        console.log(validUser);
         if (validUser) {
-            alert('Informations d\'identification correctes.');
-
-            // history.push('/HomePage'); // Utilisez '/dashboard' ou le chemin que vous avez défini pour votre HomePage
+            alert('Welcome, vous etes connecté.');
+            // Redirigez vers la page d'accueil ou le tableau de bord ici
         } else {
-            alert('Informations d\'identification incorrectes.');
+            alert('password or email  incorrectes.');
         }
     }
 
@@ -74,5 +68,8 @@ const LoginPage = () => {
         </Container>
     );
 }
+const mapStateToProps = (state) => ({
+    user: state.user, // récupère les données de l'utilisateur depuis Redux
+});
 
-export default LoginPage;
+export default connect(mapStateToProps)(LoginPage);
