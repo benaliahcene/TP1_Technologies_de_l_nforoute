@@ -1,6 +1,9 @@
 import { SAVE_USER_DATA } from '../actions/actionTypes';
 
 const initialState = {
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '', // Format yyyy-mm-dd
     email: '',
     password: ''
 };
@@ -10,6 +13,9 @@ const userReducer = (state = initialState, action) => {
         case SAVE_USER_DATA:
             return {
                 ...state,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                dateOfBirth: action.payload.dateOfBirth,
                 email: action.payload.email,
                 password: action.payload.password
             };

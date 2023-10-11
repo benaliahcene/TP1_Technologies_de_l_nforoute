@@ -3,14 +3,23 @@ import { connect } from "react-redux";
 import { updateUser } from "../actions/userActions";
 import { Card, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope, faLock, faEdit, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Profil extends Component {
-  state = {
-    isEditing: false,
-    email: this.props.user.email,
-    password: '',
-  };
+    constructor(props) {
+      super(props);
+  
+      const user = props.user || {}; // Set a default empty object if user is undefined
+  
+      this.state = {
+        isEditing: false,
+        nom: user.nom || '',
+        prenom: user.prenom || '',
+        email: user.email || '',
+        dateNaissance: user.dateNaissance || '',
+        password: user.password || '',
+      };
+    }
 
   toggleEdit = () => {
     this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
@@ -22,10 +31,15 @@ class Profil extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault(); // Prévenir le rechargement de la page
+
     const updatedUser = {
       ...this.props.user,
+      nom: this.state.nom,
+      prenom: this.state.prenom,
       email: this.state.email,
+      dateNaissance: this.state.dateNaissance,
       password: this.state.password
     };
 
@@ -35,21 +49,35 @@ class Profil extends Component {
 
   render() {
     const { user } = this.props;
-    const { isEditing, email, password } = this.state;
-
+    const { isEditing, nom, prenom, email, dateNaissance, password } = this.state;
+ console.log(user); console.log(nom);
     return (
-     
       <div className="mt-4">
         <Card style={{ width: '30rem', margin: 'auto' }}>
           <Card.Header>
-            <h1><FontAwesomeIcon icon={faUser} />Modification du Profil</h1>
+            <h1><FontAwesomeIcon icon={faUser} /> Modification du Profil</h1>
           </Card.Header>
           <Card.Body>
             {isEditing ? (
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                  <Form.Label><FontAwesomeIcon icon={faUser} /> Nom</Form.Label>
+                  <Form.Control type="text" name="nom" value={nom} onChange={this.handleInputChange} />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label><FontAwesomeIcon icon={faUser} /> Prénom</Form.Label>
+                  <Form.Control type="text" name="prenom" value={prenom} onChange={this.handleInputChange} />
+                </Form.Group>
+
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faEnvelope} /> Email</Form.Label>
                   <Form.Control type="email" name="email" value={email} onChange={this.handleInputChange} />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label><FontAwesomeIcon icon={faCalendarAlt} /> Date de Naissance</Form.Label>
+                  <Form.Control type="date" name="dateNaissance" value={dateNaissance} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
@@ -57,14 +85,15 @@ class Profil extends Component {
                   <Form.Control type="password" name="password" value={password} onChange={this.handleInputChange} />
                 </Form.Group>
 
-                <Button variant="success" onClick={this.handleSubmit}>Sauvegarder</Button>
+                <Button variant="success" type="submit">Sauvegarder</Button>
                 <Button variant="secondary" className="ml-2" onClick={this.toggleEdit}>Annuler</Button>
               </Form>
             ) : (
               <div>
                 <p><strong>Nom:</strong> {user.nom}</p>
+                <p><strong>Prénom:</strong> {user.prenom}</p>
                 <p><strong>Email:</strong> {user.email}</p>
-                {/* Mot de passe n'est généralement pas affiché pour des raisons de sécurité */}
+                <p><strong>Date de Naissance:</strong> {user.dateNaissance}</p>
                 <Button variant="primary" onClick={this.toggleEdit}><FontAwesomeIcon icon={faEdit} /> Modifier</Button>
               </div>
             )}
@@ -76,11 +105,11 @@ class Profil extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user, 
+    user: state.userData && state.userData.user ? state.userData.user : {},
 });
 
 const mapDispatchToProps = {
-  updateUser, 
+  updateUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profil);
