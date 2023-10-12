@@ -1,4 +1,5 @@
-import { SAVE_USER_DATA } from '../actions/actionTypes';
+// userReducer.jsx
+import { SAVE_USER_DATA, UPDATE_USER_DATA } from '../actions/actionTypes';
 
 const initialState = {
     firstName: '',
@@ -18,6 +19,15 @@ const userReducer = (state = initialState, action) => {
                 dateOfBirth: action.payload.dateOfBirth,
                 email: action.payload.email,
                 password: action.payload.password
+            };
+        case UPDATE_USER_DATA:
+            return {
+                ...state,
+                firstName: action.payload.firstName || state.firstName,
+                lastName: action.payload.lastName || state.lastName,
+                dateOfBirth: action.payload.dateOfBirth || state.dateOfBirth,
+                email: action.payload.email || state.email,
+                password: action.payload.password || state.password
             };
         default:
             return state;

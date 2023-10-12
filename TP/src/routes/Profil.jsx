@@ -13,10 +13,10 @@ class Profil extends Component {
   
       this.state = {
         isEditing: false,
-        nom: user.nom || '',
-        prenom: user.prenom || '',
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
         email: user.email || '',
-        dateNaissance: user.dateNaissance || '',
+        dateOfBirth: user.dateOfBirth || '',
         password: user.password || '',
       };
     }
@@ -36,10 +36,10 @@ class Profil extends Component {
 
     const updatedUser = {
       ...this.props.user,
-      nom: this.state.nom,
-      prenom: this.state.prenom,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
-      dateNaissance: this.state.dateNaissance,
+      dateOfBirth: this.state.dateOfBirth,
       password: this.state.password
     };
 
@@ -49,7 +49,7 @@ class Profil extends Component {
 
   render() {
     const { user } = this.props;
-    const { isEditing, nom, prenom, email, dateNaissance, password } = this.state;
+    const { isEditing, firstName, lastName, email, dateOfBirth, password } = this.state;
  console.log(user); console.log(nom);
     return (
       <div className="mt-4">
@@ -62,12 +62,12 @@ class Profil extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faUser} /> Nom</Form.Label>
-                  <Form.Control type="text" name="nom" value={nom} onChange={this.handleInputChange} />
+                  <Form.Control type="text" name="nom" value={firstName} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faUser} /> Prénom</Form.Label>
-                  <Form.Control type="text" name="prenom" value={prenom} onChange={this.handleInputChange} />
+                  <Form.Control type="text" name="prenom" value={lastName} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
@@ -77,7 +77,7 @@ class Profil extends Component {
 
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faCalendarAlt} /> Date de Naissance</Form.Label>
-                  <Form.Control type="date" name="dateNaissance" value={dateNaissance} onChange={this.handleInputChange} />
+                  <Form.Control type="date" name="dateNaissance" value={dateOfBirth} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
@@ -90,10 +90,10 @@ class Profil extends Component {
               </Form>
             ) : (
               <div>
-                <p><strong>Nom:</strong> {user.nom}</p>
-                <p><strong>Prénom:</strong> {user.prenom}</p>
+                <p><strong>Nom:</strong> {user.firstName}</p>
+                <p><strong>Prénom:</strong> {user.lastName}</p>
                 <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Date de Naissance:</strong> {user.dateNaissance}</p>
+                <p><strong>Date de Naissance:</strong> {user.dateOfBirth}</p>
                 <Button variant="primary" onClick={this.toggleEdit}><FontAwesomeIcon icon={faEdit} /> Modifier</Button>
               </div>
             )}

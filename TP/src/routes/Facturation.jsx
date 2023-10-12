@@ -3,7 +3,6 @@ import { Card, InputGroup, Form, Button } from 'react-bootstrap';
 
 const Facturation = () => (
     <Card className="bg-dark text-white">
-      <Card.Img src="holder.js/100px270" alt="Card image" />
       <Card.ImgOverlay>
         <Card.Title>Card title</Card.Title>
         <Card.Text>

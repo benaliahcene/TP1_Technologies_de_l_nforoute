@@ -11,7 +11,7 @@ const Sold = () => (
                     aria-label="Solde"
                 />
                 <InputGroup.Text>$</InputGroup.Text>
-                <Button variant="outline-primary">Button</Button>
+                <Button variant="outline-primary">Alimenter</Button>
             </InputGroup>
         </Card.Body>
     </Card>
