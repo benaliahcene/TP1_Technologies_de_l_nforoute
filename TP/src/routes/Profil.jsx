@@ -50,7 +50,7 @@ class Profil extends Component {
   render() {
     const { user } = this.props;
     const { isEditing, firstName, lastName, email, dateOfBirth, password } = this.state;
- console.log(user); console.log(nom);
+ console.log(user); console.log(firstName);
     return (
       <div className="mt-4">
         <Card style={{ width: '30rem', margin: 'auto' }}>

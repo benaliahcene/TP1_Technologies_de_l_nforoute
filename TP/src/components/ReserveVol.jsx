@@ -1,34 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { FaPlaneDeparture, FaPlaneArrival, FaCalendar, FaUser, FaChair } from 'react-icons/fa';
 
-const FlightSearchForm = () => {
+const FlightSearchForm = ({ onSearch }) => {
+  const [departure, setDeparture] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch({
+      origin: departure,
+      destination: destination ,
+      depart_date: departureDate,
+      return_date: returnDate,
+    });
+  };
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={2}>
             <Form.Group controlId="departure">
               <Form.Label><FaPlaneDeparture /> Départ</Form.Label>
-              <Form.Control type="text" placeholder="Départ" />
+              <Form.Control
+                type="text"
+                placeholder="Départ"
+                value={departure}
+                onChange={(e) => setDeparture(e.target.value)}
+              />
             </Form.Group>
           </Col>
           <Col md={2}>
             <Form.Group controlId="destination">
               <Form.Label><FaPlaneArrival /> Destination</Form.Label>
-              <Form.Control type="text" placeholder="Destination" />
+              <Form.Control
+                type="text"
+                placeholder="Destination"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+              />
             </Form.Group>
           </Col>
           <Col md={2}>
             <Form.Group controlId="departureDate">
               <Form.Label><FaCalendar /> Date de départ</Form.Label>
-              <Form.Control type="date" />
+              <Form.Control
+                type="date"
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
+              />
             </Form.Group>
           </Col>
           <Col md={2}>
             <Form.Group controlId="returnDate">
               <Form.Label><FaCalendar /> Date de retour</Form.Label>
-              <Form.Control type="date" />
+              <Form.Control
+                type="date"
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+              />
             </Form.Group>
           </Col>
           <Col md={1}>

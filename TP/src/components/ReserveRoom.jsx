@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { FaBed, FaCalendar, FaUser, FaDoorOpen } from 'react-icons/fa';
 
-const RoomSearchForm = () => {
+const RoomSearchForm = ({ onCitySearch }) => {
+  const [searchCity, setSearchCity] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onCitySearch(searchCity);
+  };
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={3}>
             <Form.Group controlId="location">
               <Form.Label><FaBed /> Localisation</Form.Label>
-              <Form.Control type="text" placeholder="Entrez localisation" />
+              <Form.Control
+                type="text"
+                placeholder="Entrez localisation"
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
+              />
             </Form.Group>
           </Col>
           <Col md={2}>
