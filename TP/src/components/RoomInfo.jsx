@@ -25,6 +25,8 @@ const RoomInfo = ({ city }) => {
       <div className="card-body">
         <h5 className="card-title">{hotel.fullName}</h5>
         <p className="card-text">{hotel.locationName}</p>
+        <p className="card-text">{hotel.price}</p>
+
       </div>
       <hr />
     </div>

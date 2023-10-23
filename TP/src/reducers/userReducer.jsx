@@ -4,7 +4,7 @@ import { SAVE_USER_DATA, UPDATE_USER_DATA } from '../actions/actionTypes';
 const initialState = {
     firstName: '',
     lastName: '',
-    dateOfBirth: '', // Format yyyy-mm-dd
+    dateOfBirth: '2001-01-01', // Format yyyy-mm-dd
     email: '',
     password: ''
 };
@@ -12,6 +12,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SAVE_USER_DATA:
+            console.log("Payload reçu:", action.payload);
             return {
                 ...state,
                 firstName: action.payload.firstName,

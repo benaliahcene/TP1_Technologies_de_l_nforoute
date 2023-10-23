@@ -62,12 +62,12 @@ class Profil extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faUser} /> Nom</Form.Label>
-                  <Form.Control type="text" name="nom" value={firstName} onChange={this.handleInputChange} />
+                  <Form.Control type="text" name="firstName" value={firstName} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faUser} /> Prénom</Form.Label>
-                  <Form.Control type="text" name="prenom" value={lastName} onChange={this.handleInputChange} />
+                  <Form.Control type="text" name="lastName" value={lastName} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
@@ -77,7 +77,7 @@ class Profil extends Component {
 
                 <Form.Group>
                   <Form.Label><FontAwesomeIcon icon={faCalendarAlt} /> Date de Naissance</Form.Label>
-                  <Form.Control type="date" name="dateNaissance" value={dateOfBirth} onChange={this.handleInputChange} />
+                  <Form.Control type="date" name="dateOfBirth" value={dateOfBirth} onChange={this.handleInputChange} />
                 </Form.Group>
 
                 <Form.Group>
@@ -105,8 +105,9 @@ class Profil extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.userData && state.userData.user ? state.userData.user : {},
+  user: state.user,
 });
+
 
 const mapDispatchToProps = {
   updateUser,

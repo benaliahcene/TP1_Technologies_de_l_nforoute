@@ -16,8 +16,10 @@ const LoginPage = (props) => {
         console.log("email entre", enteredEmail );
         console.log("password entre", enteredPassword );
         console.log("email recup", props.user.email );
+        console.log("email recup", props.user.dateOfBirth );
         console.log("password recup", props.user.password );
         console.log("compte recup", props.user);
+        
 
 
         const validUser = props.user.email === enteredEmail && props.user.password === enteredPassword;
