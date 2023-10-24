@@ -6,7 +6,7 @@ import Menu from './components/Menu';
 import Footer from './components/Footer';
 import Home from './routes/Home';
 import Vols from './routes/ReserveVol';
-import Chambres from './routes/ReserveRoom';
+import Chambres from './routes/HotelPage';
 import Profil from './routes/Profil';
 import Solde from './routes/Sold';
 import Facturation from './routes/Facturation';

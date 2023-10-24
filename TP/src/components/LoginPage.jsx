@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState  } from "react";
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-
+import { Form, Button, Container, Row, Col, Card,Alert } from "react-bootstrap";
+import { useNavigate   } from 'react-router-dom'; 
 const LoginPage = (props) => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-
+    const navigate = useNavigate();
+    const [message, setMessage] = useState(null);
     const handleLogin = (event) => {
         event.preventDefault();
 
@@ -19,21 +20,40 @@ const LoginPage = (props) => {
         console.log("email recup", props.user.dateOfBirth );
         console.log("password recup", props.user.password );
         console.log("compte recup", props.user);
+        console.log("solde recup", props.user.solde);
         
 
 
         const validUser = props.user.email === enteredEmail && props.user.password === enteredPassword;
         console.log(validUser);
         if (validUser) {
-            alert('Welcome, vous etes connecté.');
-            // Redirigez vers la page d'accueil ou le tableau de bord ici
+            setMessage({
+                type: 'success',
+                text: 'Bienvenue, vous êtes connecté.'
+            });
+
+            setTimeout(() => {
+                navigate('/vols');
+            }, 2000);
         } else {
-            alert('password or email  incorrectes.');
+            setMessage({
+                type: 'danger',
+                text: 'E-mail ou mot de passe incorrect.'
+            });
         }
     }
 
     return (
         <Container className="mt-5">
+             {message && (
+                <Row className="justify-content-md-center mb-4">
+                    <Col xs={12} md={6}>
+                        <Alert variant={message.type}>
+                            {message.text}
+                        </Alert>
+                    </Col>
+                </Row>
+            )}
             <Row className="justify-content-md-center">
                 <Col xs={12} md={6}>
                     <Card>

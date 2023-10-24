@@ -30,6 +30,7 @@ const FlightSearchForm = ({ onSearch }) => {
                 placeholder="Départ"
                 value={departure}
                 onChange={(e) => setDeparture(e.target.value)}
+                required 
               />
             </Form.Group>
           </Col>
@@ -41,6 +42,7 @@ const FlightSearchForm = ({ onSearch }) => {
                 placeholder="Destination"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
+                required 
               />
             </Form.Group>
           </Col>
@@ -51,6 +53,7 @@ const FlightSearchForm = ({ onSearch }) => {
                 type="date"
                 value={departureDate}
                 onChange={(e) => setDepartureDate(e.target.value)}
+                required 
               />
             </Form.Group>
           </Col>
@@ -61,6 +64,7 @@ const FlightSearchForm = ({ onSearch }) => {
                 type="date"
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
+                required 
               />
             </Form.Group>
           </Col>

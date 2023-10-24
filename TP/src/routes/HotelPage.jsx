@@ -5,10 +5,10 @@ import ReserveRoom from "../components/ReserveRoom";
 import RoomInfo from "../components/RoomInfo";
 
 const MyComponent = () => {
-  const [city, setCity] = useState("");
+  const [searchDetails, setSearchDetails] = useState(null);
 
-  const handleCitySearch = (newCity) => {
-    setCity(newCity);
+  const handleCitySearch = (details) => {
+    setSearchDetails(details);
   };
 
   return (
@@ -17,7 +17,7 @@ const MyComponent = () => {
         <Card.Header> <h2>Trouvez la chambre de vos rêves dès aujourd'hui.</h2></Card.Header>
         <Card.Body>
           <ReserveRoom onCitySearch={handleCitySearch} />
-          {city && <RoomInfo city={city} />}
+          {searchDetails && <RoomInfo searchDetails={searchDetails} />}
         </Card.Body>
       </Card>
     </div>

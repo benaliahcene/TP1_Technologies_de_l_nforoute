@@ -11,7 +11,8 @@ library.add(faEnvelope, faLock, faUserPlus, faTimes, faUser, faCalendarAlt);
 const SignUpPage = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    
+    const [accountCreated, setAccountCreated] = useState(false);
+
     // Refs
     const firstNameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -37,17 +38,30 @@ const SignUpPage = (props) => {
         const userData = {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
-            dob: dobRef.current.value,
+            dateOfBirth: dobRef.current.value,
             email: emailRef.current.value,
             password: passwordRef.current.value
         };
 
         props.saveUserData(userData); console.log("test", userData) // Sauvegarde des données
         setErrorMessage(''); 
+        console.log("Date de naissance avant l'enregistrement:", userData.dateOfBirth);
         setShowForm(false); // Cacher le formulaire après soumission
+        props.saveUserData(userData);
+        setAccountCreated(true);
+        props.saveUserData(userData);
+        setAccountCreated(true);
+        setTimeout(() => {
+            setAccountCreated(false);
+        }, 3000);
     }
     return (
         <Container className="mt-5">
+             {accountCreated && (
+              <Alert variant="success" className="mt-3 text-center">
+                Votre compte a été créé avec succès !
+              </Alert>
+            )}
             <Row className="justify-content-md-center">
                 <Col xs={12} md={6}>
                     <Card>

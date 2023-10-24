@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateUser } from "../actions/userActions";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faEdit, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,6 +44,8 @@ class Profil extends Component {
     };
 
     this.props.updateUser(updatedUser);
+    this.setState({ showAlert: true }); // Affichez l'alerte après la mise à jour
+    setTimeout(() => this.setState({ showAlert: false }), 3000); // Cachez l'alerte après 3 secondes
     this.toggleEdit();
   };
 
@@ -53,11 +55,16 @@ class Profil extends Component {
  console.log(user); console.log(firstName);
     return (
       <div className="mt-4">
-        <Card style={{ width: '30rem', margin: 'auto' }}>
-          <Card.Header>
-            <h1><FontAwesomeIcon icon={faUser} /> Modification du Profil</h1>
-          </Card.Header>
-          <Card.Body>
+      <Card style={{ width: '30rem', margin: 'auto' }}>
+        <Card.Header>
+          <h1><FontAwesomeIcon icon={faUser} /> Modification du Profil</h1>
+        </Card.Header>
+        <Card.Body>
+          {this.state.showAlert && (
+            <Alert variant="success" onClose={() => this.setState({ showAlert: false })} dismissible>
+              Vos informations de profil ont été mises à jour avec succès.
+            </Alert>
+          )}
             {isEditing ? (
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group>

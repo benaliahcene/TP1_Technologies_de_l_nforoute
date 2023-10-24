@@ -4,10 +4,12 @@ import { FaBed, FaCalendar, FaUser, FaDoorOpen } from 'react-icons/fa';
 
 const RoomSearchForm = ({ onCitySearch }) => {
   const [searchCity, setSearchCity] = useState("");
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onCitySearch(searchCity);
+    onCitySearch({ searchCity, checkInDate, checkOutDate });
   };
 
   return (
@@ -22,19 +24,30 @@ const RoomSearchForm = ({ onCitySearch }) => {
                 placeholder="Entrez localisation"
                 value={searchCity}
                 onChange={(e) => setSearchCity(e.target.value)}
+                required 
               />
             </Form.Group>
           </Col>
           <Col md={2}>
             <Form.Group controlId="checkInDate">
               <Form.Label><FaCalendar /> Date d'arrivée</Form.Label>
-              <Form.Control type="date" />
+              <Form.Control 
+                type="date" 
+                value={checkInDate}
+                onChange={(e) => setCheckInDate(e.target.value)}
+                required 
+              />
             </Form.Group>
           </Col>
           <Col md={2}>
             <Form.Group controlId="checkOutDate">
               <Form.Label><FaCalendar /> Date de départ</Form.Label>
-              <Form.Control type="date" />
+              <Form.Control 
+                type="date" 
+                value={checkOutDate}
+                onChange={(e) => setCheckOutDate(e.target.value)}
+                required 
+              />
             </Form.Group>
           </Col>
           <Col md={1}>

@@ -1,36 +1,79 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Button, Card, Alert } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { updateUser } from "../actions/userActions";
 
-const RoomInfo = ({ city }) => {
+const RoomInfo = ({ searchDetails, user, updateUser }) => {
   const [hotels, setHotels] = useState([]);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const token = "";
+  const token = "27dc1b903af1a11009cd1701a64ad4bf"; 
+  const currency = "CAD";
+
+  const handleReservation = (hotel) => {
+    if (user.solde >= hotel.priceFrom) {
+      const newSolde = user.solde - hotel.priceFrom;
+      updateUser({
+        ...user,
+        solde: newSolde
+      });
+      setConfirmationMessage(`Vous avez réservé une chambre à l'hôtel ${hotel.hotelName}.`);
+      setTimeout(() => setConfirmationMessage(''), 3000);
+    } else {
+      setErrorMessage("Votre solde est insuffisant. Veuillez recharger votre compte.");
+      setTimeout(() => setErrorMessage(''), 3000);
+    }
+  };
 
   useEffect(() => {
     axios
       .get(
-        `/hotel/api/v2/lookup.json?query=${city}&lang=fr&lookFor=both&limit=100&token=${token}`
+        `/hotel/api/v2/cache.json?location=${searchDetails.searchCity}&checkIn=${searchDetails.checkInDate}&checkOut=${searchDetails.checkOutDate}&currency=${currency}&limit=100&token=${token}`
       )
       .then((res) => {
-        setHotels(res.data.results.hotels.filter(hotel => hotel.locationName.includes("Canada")));
+        setHotels(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [city]);
+  }, [searchDetails]);
 
-  return hotels.map((hotel, key) => (
-    <div key={key} className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">{hotel.fullName}</h5>
-        <p className="card-text">{hotel.locationName}</p>
-        <p className="card-text">{hotel.price}</p>
+  return (
+    <div>
+      {confirmationMessage && <Alert variant="success">{confirmationMessage}</Alert>}
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
-      </div>
-      <hr />
+      {hotels.map((hotel, key) => (
+        <div key={key} >
+          <Card className="mb-3">
+            <Card.Body>
+              <Card.Title>{hotel.hotelName}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                <b>{hotel.stars} étoiles</b>
+              </Card.Subtitle>
+              <Card.Text>
+                <p><b>Lieu :</b> {hotel.location.name}</p>
+                <p><b>Pays :</b> {hotel.location.country}</p>
+                <p><b>Prix :</b>{hotel.priceFrom}</p>
+              </Card.Text>
+              <Button variant="primary" onClick={() => handleReservation(hotel)}>Réserver</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      ))}
     </div>
-  ));
+  );
 };
 
-export default RoomInfo;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {
+  updateUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomInfo);
