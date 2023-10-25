@@ -5,7 +5,7 @@ import { updateUser } from '../actions/userActions';
 
 const Sold = ({ user, updateUser }) => {
     const [inputValue, setInputValue] = useState("");
-    const [showAlert, setShowAlert] = useState(false); // Nouvel état pour gérer l'affichage de l'alerte
+    const [showAlert, setShowAlert] = useState(false); 
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -17,17 +17,31 @@ const Sold = ({ user, updateUser }) => {
             ...user,
             solde: newSolde
         });
-        setShowAlert(true); // Affichez l'alerte après la mise à jour du solde
-        setTimeout(() => setShowAlert(false), 3000); // Cachez l'alerte après 3 secondes
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 3000);
     };
+    console.log(user.firstName);
+    // If the user's name is empty, display a message prompting them to connect
+    if (!user.firstName) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}>
+                <Card style={{ width: "30rem", padding: '20px' }}>
+                    <Card.Body>
+                        <Card.Text>
+                            Veuillez vous connecter pour alimenter votre solde.
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </div>
+        );
+    }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}>
-            <Card style={{ width: "30rem", padding: '20px' }}>
+<div className="d-flex justify-content-center align-items-center ">
+<Card style={{ width: '30rem' }}>
                 <Card.Body>
                     <Card.Title style={{ marginBottom: '20px' }}>Solde actuel: {user.solde}$</Card.Title>
 
-                    {/* Affichez l'alerte si showAlert est vrai */}
                     {showAlert && (
                         <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
                             Votre solde a été rechargé avec succès.

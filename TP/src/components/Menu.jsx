@@ -3,8 +3,14 @@ import { Container, Button } from "react-bootstrap";
 import { FaHome, FaPlane, FaBed, FaUser, FaWallet } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
+const menuStyle = {
+  position: "sticky",
+  top: "0",
+  zIndex: "1000"  // pour s'assurer que le menu est toujours au-dessus des autres éléments
+};
+
 const Menu = (props) => (
-  <Container fluid className="p-5 mb-2 bg-light text-dark">
+  <Container fluid className="p-5 mb-2 bg-light text-dark" style={menuStyle}>
     <h1>
       <FaPlane />
       <b>FlyWithUs</b>.

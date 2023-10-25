@@ -10,7 +10,7 @@ class MyComponent extends Component {
         return (
             <div>
              
-                <Container style={{marginTop:"150px"}}>
+                <Container >
                     <Row>
                         <Col>
                             <Card>

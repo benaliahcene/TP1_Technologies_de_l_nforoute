@@ -4,7 +4,7 @@ import { SAVE_USER_DATA, UPDATE_USER_DATA } from '../actions/actionTypes';
 const initialState = {
     firstName: '',
     lastName: '',
-    dateOfBirth: '2001-01-01', // Format yyyy-mm-dd
+    dateOfBirth: '', 
     email: '',
     password: '',
     solde: 0.0
@@ -26,6 +26,8 @@ const userReducer = (state = initialState, action) => {
                
             };
         case UPDATE_USER_DATA:
+            console.log('UPDATE_USER_DATA action received:', action);
+
             return {
                 ...state,
                 firstName: action.payload.firstName || state.firstName,
@@ -36,6 +38,8 @@ const userReducer = (state = initialState, action) => {
                 solde: action.payload.solde || state.solde
             };
         default:
+            console.log('New state after UPDATE_USER_DATA:', state);
+
             return state;
     }
 };

@@ -10,24 +10,28 @@ import Chambres from './routes/HotelPage';
 import Profil from './routes/Profil';
 import Solde from './routes/Sold';
 import Facturation from './routes/Facturation';
-
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Menu />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/vols" element={<Vols />} />
-                    <Route path="/chambres" element={<Chambres />} />
-                    <Route path="/profil" element={<Profil />} />
-                    <Route path="/solde" element={<Solde />} />
-                    <Route path="/facturation" element={<Facturation />} />
-                </Routes>
-                <Footer />
+                <div className="d-flex flex-column min-vh-100">
+                    <Menu />
+                    <div className="flex-grow-1">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/vols" element={<Vols />} />
+                            <Route path="/chambres" element={<Chambres />} />
+                            <Route path="/profil" element={<Profil />} />
+                            <Route path="/solde" element={<Solde />} />
+                            <Route path="/facturation" element={<Facturation />} />
+                        </Routes>
+                    </div>
+                    <Footer />
+                </div>
             </BrowserRouter>
         );
     }
 }
 
 export default App;
+

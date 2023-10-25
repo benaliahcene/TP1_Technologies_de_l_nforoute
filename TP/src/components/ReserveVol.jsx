@@ -86,7 +86,7 @@ const FlightSearchForm = ({ onSearch }) => {
             </Form.Group>
           </Col>
         </Row>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" md={2} type="submit">
           Rechercher
         </Button>
       </Form>

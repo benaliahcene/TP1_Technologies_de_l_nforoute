@@ -2,12 +2,12 @@
 import { SAVE_ROOM_DATA} from '../actions/actionTypes';
 
 const initialState = {
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '2001-01-01', // Format yyyy-mm-dd
-    email: '',
-    password: '',
-    solde: 0.0
+    location: '',
+    checkIn: '',
+    checkOut: '', 
+    price: 0.0,
+    name: '',
+    country: ''
 };
 
 const roomReducer = (state = initialState, action) => {
@@ -17,12 +17,12 @@ const roomReducer = (state = initialState, action) => {
            
             return {
                 ...state,
-                firstName: action.payload.firstName,
-                lastName: action.payload.lastName,
-                dateOfBirth: action.payload.dateOfBirth,
-                email: action.payload.email,
-                password: action.payload.password,
-                solde: action.payload.solde || 0.0
+                location: action.payload.location,
+                checkIn: action.payload.checkIn,
+                checkOut: action.payload.checkOut,
+                price: action.payload.price || 0.0 ,
+                name: action.payload.name,
+                country: action.payload.country,
                
             };
         default:

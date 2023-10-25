@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { updateUser } from "../actions/userActions";
-import { connect } from 'react-redux';
-import { saveVolData } from '../actions/volActions'; 
+import { connect } from "react-redux";
+import { saveVolData } from "../actions/volActions";
 
 class FlightInfo extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       flights: {},
       currency: "",
       destinationKey: null,
-      confirmationMessage: '',
-      errorMessage: ''
+      confirmationMessage: "",
+      errorMessage: "",
     };
   }
 
@@ -30,7 +29,7 @@ class FlightInfo extends Component {
           this.setState({
             destinationKey: Object.keys(res.data.data)[0],
             flights: res.data.data,
-            currency: res.data.currency
+            currency: res.data.currency,
           });
         }
       })
@@ -45,31 +44,40 @@ class FlightInfo extends Component {
       const newSolde = user.solde - flightData.price;
       this.props.updateUser({
         ...user,
-        solde: newSolde
+        solde: newSolde,
       });
-      this.setState({ 
-        confirmationMessage: `Vous avez réservé un vol avec la compagnie aérienne ${flightData.airline}.` 
+      this.setState({
+        confirmationMessage: `Vous avez réservé un vol avec la compagnie aérienne ${flightData.airline}.`,
       });
-      setTimeout(() => this.setState({ confirmationMessage: '' }), 3000);
+      setTimeout(() => this.setState({ confirmationMessage: "" }), 3000);
 
       const flightInfo = {
         AC: flightData.airline,
         From: this.props.origin,
         To: this.props.destination,
         Number_flight: flightData.flight_number,
-        Price: flightData.price
+        Price: flightData.price,
       };
 
       this.props.saveVolData(flightInfo);
       console.log("test vol save", flightInfo);
     } else {
-      this.setState({ errorMessage: "Votre solde est insuffisant. Veuillez recharger votre compte." });
-      setTimeout(() => this.setState({ errorMessage: '' }), 3000);
+      this.setState({
+        errorMessage:
+          "Votre solde est insuffisant. Veuillez recharger votre compte.",
+      });
+      setTimeout(() => this.setState({ errorMessage: "" }), 3000);
     }
   };
 
   render() {
-    const { flights, destinationKey, confirmationMessage, errorMessage, currency } = this.state;
+    const {
+      flights,
+      destinationKey,
+      confirmationMessage,
+      errorMessage,
+      currency,
+    } = this.state;
 
     if (!destinationKey || !flights[destinationKey]) {
       return <div>Chargement des informations de vol...</div>;
@@ -77,8 +85,12 @@ class FlightInfo extends Component {
 
     return (
       <div className="container mt-5">
-        {confirmationMessage && <div className="alert alert-success">{confirmationMessage}</div>}
-        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+        {confirmationMessage && (
+          <div className="alert alert-success">{confirmationMessage}</div>
+        )}
+        {errorMessage && (
+          <div className="alert alert-danger">{errorMessage}</div>
+        )}
         {Object.values(flights[destinationKey]).map((flightData) => (
           <div key={flightData.departure_at} className="card mb-3">
             <div className="card-header">Informations de vol</div>
@@ -104,15 +116,22 @@ class FlightInfo extends Component {
                 <b>Numéro de vol:</b> {flightData.flight_number}
               </p>
               <p className="font-weight-bold">
-                <b>Prix:</b>  {flightData.price} {currency}
+                <b>Prix:</b> {flightData.price} {currency}
               </p>
-              <Button 
-                variant="primary" 
+
+              <Button
+                variant="primary"
                 onClick={() => this.handleReservationClick(flightData)}
-                className="mt-3"
+                disabled={!this.props.user.firstName} // Désactiver le bouton si l'utilisateur n'est pas connecté
               >
-                Réserver
+                Réserver & Payer
               </Button>
+              {/* Afficher ce message si l'utilisateur n'est pas connecté */}
+              {!this.props.user.firstName && (
+                <small className="d-block text-danger mt-3">
+                  Connectez-vous pour réserver
+                </small>
+              )}
             </div>
           </div>
         ))}
@@ -122,12 +141,12 @@ class FlightInfo extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
 });
 
 const mapDispatchToProps = {
   updateUser,
-  saveVolData
+  saveVolData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlightInfo);
